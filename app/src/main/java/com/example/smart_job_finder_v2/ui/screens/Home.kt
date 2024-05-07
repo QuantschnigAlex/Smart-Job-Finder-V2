@@ -1,4 +1,5 @@
 package com.example.smart_job_finder_v2.ui.screens
+
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,15 +22,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.example.smart_job_finder_v2.models.Job
+import com.example.smart_job_finder_v2.ui.widgets.BottomBar
 import com.example.smart_job_finder_v2.ui.widgets.JobItemView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
     Scaffold(
-        topBar = { ToolBar(   { /** handle Navigation Click */}) {
-            /** handle Action Click*/
-        } },
+        topBar = {
+            ToolBar({ /** handle Navigation Click */ }) {
+                /** handle Action Click*/
+            }
+        },
+        bottomBar = { BottomBar() },
         content = { padding ->
             HomeContent(padding)
         }
@@ -81,16 +86,24 @@ fun HomeContent(padding: PaddingValues) {
         Job(7, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
         Job(8, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
         Job(9, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(10, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
+        Job(
+            10,
+            "Software Engineer",
+            "Amazon",
+            "Graz",
+            "Full Time",
+            "Job Description",
+            "Posted Date"
+        )
     }
 
     Box(modifier = Modifier.padding(padding)) {
-       LazyColumn(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(job) { job ->
                 JobItemView(job)
                 Divider()
             }
-       }
+        }
     }
 }
 
