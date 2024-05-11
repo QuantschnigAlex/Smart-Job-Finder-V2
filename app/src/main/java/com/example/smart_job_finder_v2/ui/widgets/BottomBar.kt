@@ -24,7 +24,7 @@ fun BottomBar(modifier: Modifier = Modifier, navController: NavController) {
             onClick = { navController.navigate(Screen.HomeScreen.route) }
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Outlined.FavoriteBorder, contentDescription = "Search") },
+            icon = { Icon(Icons.Outlined.FavoriteBorder, contentDescription = "Likes") },
             label = { Text("Likes", maxLines = 1) },
             selected = navController.currentRoute() == Screen.LikesScreen.route,
             onClick = { navController.navigate(Screen.LikesScreen.route) }
