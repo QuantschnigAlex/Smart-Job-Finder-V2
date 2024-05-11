@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.smart_job_finder_v2.Navigation
+import com.example.smart_job_finder_v2.Screen
 import com.example.smart_job_finder_v2.models.Job
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
 import com.example.smart_job_finder_v2.ui.widgets.JobItemView
@@ -37,9 +38,14 @@ import com.example.smart_job_finder_v2.ui.widgets.JobItemView
 fun HomeScreen(navController: NavController) {
     Scaffold(
         topBar = {
-            ToolBar({ /** handle Navigation Click */ }) {
-                /** handle Action Click*/
-            }
+            ToolBar(
+                onNavigationClick = {
+                    /** handle Navigation Click */
+                },
+                onSettingClick = {
+                    navController.navigate(Screen.SettingsScreen.route)
+                }
+            )
         },
         bottomBar = {
             BottomBar(

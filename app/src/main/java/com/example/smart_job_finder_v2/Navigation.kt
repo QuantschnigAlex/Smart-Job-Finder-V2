@@ -11,6 +11,7 @@ import com.example.smart_job_finder_v2.models.Job
 import com.example.smart_job_finder_v2.ui.screens.DetailsScreen
 import com.example.smart_job_finder_v2.ui.screens.HomeScreen
 import com.example.smart_job_finder_v2.ui.screens.LikesScreen
+import com.example.smart_job_finder_v2.ui.screens.SettingsScreen
 
 @Composable
 fun Navigation(modifier: Modifier = Modifier) {
@@ -27,6 +28,11 @@ fun Navigation(modifier: Modifier = Modifier) {
             route = Screen.DetailsScreen.route
         ) {
             DetailsScreen(navController)
+        }
+        composable(
+            route = Screen.SettingsScreen.route
+        ) {
+            SettingsScreen(navController)
         }
     }
 }
