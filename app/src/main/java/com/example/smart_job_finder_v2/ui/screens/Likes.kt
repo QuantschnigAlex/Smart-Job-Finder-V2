@@ -23,7 +23,7 @@ fun LikesScreen(navController: NavController, openDrawer: () -> Unit) {
             })
         },
         content = { padding ->
-            HomeContent(padding, navController)
+            LikesContent(padding)
         },
         bottomBar = {
             BottomBar(navController = navController)
