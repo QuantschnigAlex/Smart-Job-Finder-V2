@@ -9,26 +9,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import com.example.smart_job_finder_v2.ToolBar
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LikesScreen(navController: NavController) {
-    /** handle Action Click*/
-    /** handle Navigation Click */
+fun LikesScreen(navController: NavController, openDrawer: () -> Unit) {
     Scaffold(
         topBar = {
-            ToolBar({ /** handle Navigation Click */ }) {
-                /** handle Action Click*/
-            }
-        },
-        bottomBar = {
-            BottomBar(
-                navController = navController
-            )
+            ToolBar(onNavigationClick = {
+                openDrawer()
+            })
         },
         content = { padding ->
-            LikesContent(padding)
+            HomeContent(padding, navController)
+        },
+        bottomBar = {
+            BottomBar(navController = navController)
         }
     )
 }
