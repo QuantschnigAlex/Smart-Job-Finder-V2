@@ -7,16 +7,14 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.example.smart_job_finder_v2.models.Job
 import com.example.smart_job_finder_v2.ui.screens.DetailsScreen
 import com.example.smart_job_finder_v2.ui.screens.HomeScreen
 import com.example.smart_job_finder_v2.ui.screens.LikesScreen
 import com.example.smart_job_finder_v2.ui.screens.SettingsScreen
+import com.example.smart_job_finder_v2.ui.widgets.DrawerContent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,7 +49,7 @@ fun Navigation(modifier: Modifier = Modifier) {
             }
             composable(route = Screen.DetailsScreen.route) {
                 DetailsScreen(navController)
-                }
+            }
 
             composable(route = Screen.SettingsScreen.route) {
                 SettingsScreen(navController)

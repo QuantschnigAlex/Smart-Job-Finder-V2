@@ -1,4 +1,4 @@
-package com.example.smart_job_finder_v2
+package com.example.smart_job_finder_v2.ui.widgets
 
 
 import androidx.compose.foundation.layout.RowScope
@@ -14,7 +14,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToolBar(
@@ -23,11 +22,11 @@ fun ToolBar(
 ) {
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-        containerColor = MaterialTheme.colorScheme.primary,
-        titleContentColor = MaterialTheme.colorScheme.onPrimary,
-        navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
-        actionIconContentColor = MaterialTheme.colorScheme.onSecondary
-    ),
+            containerColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = MaterialTheme.colorScheme.onPrimary,
+            navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+            actionIconContentColor = MaterialTheme.colorScheme.onSecondary
+        ),
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(

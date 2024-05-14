@@ -1,8 +1,9 @@
-package com.example.smart_job_finder_v2
+package com.example.smart_job_finder_v2.ui.widgets
 
-import android.media.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,9 +22,12 @@ import kotlinx.coroutines.launch
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.smart_job_finder_v2.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,7 +35,8 @@ fun DrawerContent(navController: NavController, drawerState: DrawerState, scope:
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .background(color = MaterialTheme.colorScheme.primary)
+
     ) {
         //UserProfileHeader()
 
@@ -96,8 +101,8 @@ fun navigateToScreen(
 ) {
     scope.launch {
         drawerState.close()
-        navController.navigate(route){
-            popUpTo(navController.graph.startDestinationId){
+        navController.navigate(route) {
+            popUpTo(navController.graph.startDestinationId) {
                 saveState = true
             }
             launchSingleTop = true
