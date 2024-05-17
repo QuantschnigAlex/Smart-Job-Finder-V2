@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name" translatable="false">smart_job_finder_v2</string>
+    <string name="LogInToFinder" translatable="false">LogIn to Smart Job Finder</string>
+    <string name="EmailPlaceholder">E-Mail</string>
+    <string name="PasswordPlaceholder">Password</string>
+    <string name="LogInButton">LogIn</string>
+    <string name="RegisterButton">Register</string>
+</resources>
