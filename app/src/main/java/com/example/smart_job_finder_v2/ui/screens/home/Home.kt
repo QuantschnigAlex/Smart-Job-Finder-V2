@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,15 +18,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.JSFAppState
 import com.example.smart_job_finder_v2.Screen
-import com.example.smart_job_finder_v2.models.Job
+import com.example.smart_job_finder_v2.models.JobModel
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
+import com.example.smart_job_finder_v2.ui.widgets.JobBottomSheet
 import com.example.smart_job_finder_v2.ui.widgets.JobItem
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     appState: JSFAppState,
@@ -34,6 +35,7 @@ fun HomeScreen(
     clearAndNavigate: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             /** handle Navigation Click */
@@ -53,7 +55,8 @@ fun HomeScreen(
             )
         },
         content = { padding ->
-            HomeContent(padding, navigate)
+            HomeContent(padding, navigate, viewModel)
+            JobBottomSheet(viewModel = viewModel, scope = scope)
         }
     )
 }
@@ -83,7 +86,7 @@ fun ToolBar(
         actions = {
             IconButton(onClick = onSettingClick) {
                 Icon(
-                    Icons.Filled.ExitToApp,
+                    Icons.AutoMirrored.Filled.ExitToApp,
                     contentDescription = "Settings"
                 )
             }
@@ -91,32 +94,39 @@ fun ToolBar(
 }
 
 @Composable
-fun HomeContent(padding: PaddingValues, navigate: (String) -> Unit) {
-    val job = List(10) {
-        Job(1, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(2, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(3, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(4, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(5, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(6, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(7, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(8, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(9, "Software Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
-        Job(
-            10,
+fun HomeContent(
+    padding: PaddingValues,
+    navigate: (String) -> Unit,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val jobModels = listOf(
+        JobModel(1, " Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
+        JobModel(2, "Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
+        JobModel(
+            3,
             "Software Engineer",
             "Amazon",
             "Graz",
             "Full Time",
             "Job Description",
             "Posted Date"
-        )
-    }
+        ),
+        JobModel(4, " Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
+        JobModel(5, " Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
+        JobModel(6, "Software ", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
+        JobModel(7, "Software", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
+        JobModel(8, "Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
+        JobModel(9, "Software", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
+        JobModel(10, " Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
+    )
+
 
     Box(modifier = Modifier.padding(padding)) {
+
+
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(job) { job ->
-                JobItem(job, navigate)
+            items(jobModels) { job ->
+                JobItem(job, viewModel = viewModel)
 
             }
         }

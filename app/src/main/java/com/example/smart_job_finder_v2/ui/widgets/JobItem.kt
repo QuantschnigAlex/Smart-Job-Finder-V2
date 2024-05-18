@@ -12,7 +12,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -25,18 +24,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.R
-import com.example.smart_job_finder_v2.Screen
-import com.example.smart_job_finder_v2.models.Job
+import com.example.smart_job_finder_v2.models.JobModel
+import com.example.smart_job_finder_v2.ui.screens.home.HomeViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JobItem(
-    job: Job,
-    navigate: (String) -> Unit
+    jobModel: JobModel,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
+
     Card(
-        onClick = { navigate(Screen.DetailsScreen.route) },
+        onClick = {
+            viewModel.showBottomSheet(jobModel)
+        },
         modifier = Modifier.padding(6.dp)
     ) {
         Row(
@@ -59,7 +61,7 @@ fun JobItem(
             ) {
 
                 Text(
-                    text = job.title,
+                    text = jobModel.title,
                     modifier = Modifier.padding(end = 8.dp)
                 )
                 Row(
@@ -80,7 +82,7 @@ fun JobItem(
                     )
                 }
                 Text(
-                    text = job.type,
+                    text = jobModel.type,
                     modifier = Modifier.padding(top = 8.dp)
                 )
             }

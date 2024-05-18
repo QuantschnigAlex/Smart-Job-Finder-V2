@@ -1,6 +1,6 @@
 package com.example.smart_job_finder_v2.models
 
-data class Job (
+data class JobModel(
     val id: Int,
     val title: String,
     val company: String,
@@ -8,4 +8,4 @@ data class Job (
     val type: String,
     val description: String,
     val postedDate: String,
-    )
+)
