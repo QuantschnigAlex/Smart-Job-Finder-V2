@@ -56,7 +56,7 @@ fun HomeScreen(
         },
         content = { padding ->
             HomeContent(padding, navigate, viewModel)
-            JobBottomSheet(viewModel = viewModel, scope = scope)
+            JobBottomSheet(viewModel = viewModel, scope = scope, navigate)
         }
     )
 }
@@ -117,7 +117,15 @@ fun HomeContent(
         JobModel(7, "Software", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
         JobModel(8, "Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
         JobModel(9, "Software", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(10, " Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date")
+        JobModel(
+            10,
+            " Engineer",
+            "Amazon",
+            "Graz",
+            "Full Time",
+            "Job Description,Description,DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionvDescriptionDescriptionvDescriptionDescriptionvDescriptionvDescriptionDescriptionDescriptionvDescriptionvvDescriptionvDescriptionDescriptionvDescriptionvDescriptionDescriptionvvvDescriptionDescriptionvDescriptionvDescriptionvvvvvv",
+            "Posted Date"
+        )
     )
 
 

@@ -5,4 +5,6 @@
     <string name="PasswordPlaceholder">Password</string>
     <string name="LogInButton">LogIn</string>
     <string name="RegisterButton">Register</string>
+    <string name="Apply">Apply</string>
+    <string name="JobDescription">Description</string>
 </resources>

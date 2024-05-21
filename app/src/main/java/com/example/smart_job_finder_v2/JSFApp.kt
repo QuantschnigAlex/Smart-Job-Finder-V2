@@ -13,8 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.smart_job_finder_v2.ui.screens.DetailsContent
-import com.example.smart_job_finder_v2.ui.screens.DetailsScreen
+import com.example.smart_job_finder_v2.ui.screens.ApplyScreen
 import com.example.smart_job_finder_v2.ui.screens.LikesScreen
 import com.example.smart_job_finder_v2.ui.screens.home.HomeScreen
 import com.example.smart_job_finder_v2.ui.screens.sign_in.SignInScreen
@@ -64,7 +63,7 @@ fun NavGraphBuilder.jsfGraph(appState: JSFAppState) {
     composable(Screen.LikesScreen.route) {
         LikesScreen(appState)
     }
-    composable(Screen.DetailsScreen.route) {
-        DetailsScreen(popUp = { appState.popUp() })
+    composable(Screen.ApplyScreen.route) {
+        ApplyScreen(popUp = { appState.popUp() })
     }
 }

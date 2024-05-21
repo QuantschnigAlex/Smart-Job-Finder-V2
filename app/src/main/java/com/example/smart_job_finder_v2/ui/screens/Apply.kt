@@ -3,7 +3,7 @@ package com.example.smart_job_finder_v2.ui.screens
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,14 +18,14 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailsScreen(popUp: () -> Unit) {
+fun ApplyScreen(popUp: () -> Unit) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = { Text(text = "Details of Job") },
                 navigationIcon = {
                     IconButton(onClick = { popUp() }) {
-                        Icon(Icons.Outlined.ArrowBack, contentDescription = "go_back")
+                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = "go_back")
                     }
                 },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(
@@ -37,12 +37,12 @@ fun DetailsScreen(popUp: () -> Unit) {
             )
         },
         content = { padding ->
-            DetailsContent(padding)
+            ApplyContent(padding)
         }
     )
 }
 
 @Composable
-fun DetailsContent(padding: PaddingValues) {
+fun ApplyContent(padding: PaddingValues) {
     Text(text = "Hello Details", modifier = Modifier.padding(padding))
 }
