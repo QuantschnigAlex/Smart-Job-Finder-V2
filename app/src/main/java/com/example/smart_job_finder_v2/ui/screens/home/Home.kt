@@ -18,19 +18,23 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.smart_job_finder_v2.JSFAppState
+import com.example.smart_job_finder_v2.SJFAppState
 import com.example.smart_job_finder_v2.Screen
 import com.example.smart_job_finder_v2.models.JobModel
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
 import com.example.smart_job_finder_v2.ui.widgets.JobBottomSheet
 import com.example.smart_job_finder_v2.ui.widgets.JobItem
+import com.google.firebase.Timestamp
+import kotlinx.coroutines.flow.forEach
 
 @Composable
 fun HomeScreen(
-    appState: JSFAppState,
+    appState: SJFAppState,
     navigate: (String) -> Unit,
     clearAndNavigate: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
@@ -55,7 +59,7 @@ fun HomeScreen(
             )
         },
         content = { padding ->
-            HomeContent(padding, navigate, viewModel)
+            HomeContent(padding, viewModel)
             JobBottomSheet(viewModel = viewModel, scope = scope, navigate)
         }
     )
@@ -96,44 +100,14 @@ fun ToolBar(
 @Composable
 fun HomeContent(
     padding: PaddingValues,
-    navigate: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val jobModels = listOf(
-        JobModel(1, " Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(2, "Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(
-            3,
-            "Software Engineer",
-            "Amazon",
-            "Graz",
-            "Full Time",
-            "Job Description",
-            "Posted Date"
-        ),
-        JobModel(4, " Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(5, " Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(6, "Software ", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(7, "Software", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(8, "Engineer", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(9, "Software", "Amazon", "Graz", "Full Time", "Job Description", "Posted Date"),
-        JobModel(
-            10,
-            " Engineer",
-            "Amazon",
-            "Graz",
-            "Full Time",
-            "Job Description,Description,DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionvDescriptionDescriptionvDescriptionDescriptionvDescriptionvDescriptionDescriptionDescriptionvDescriptionvvDescriptionvDescriptionDescriptionvDescriptionvDescriptionDescriptionvvvDescriptionDescriptionvDescriptionvDescriptionvvvvvv",
-            "Posted Date"
-        )
-    )
-
+    val jobs by viewModel.jobs.collectAsState(emptyList())
 
     Box(modifier = Modifier.padding(padding)) {
 
-
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(jobModels) { job ->
+            items(jobs) { job ->
                 JobItem(job, viewModel = viewModel)
 
             }

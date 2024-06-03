@@ -4,13 +4,19 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import com.example.smart_job_finder_v2.models.JobModel
 import com.example.smart_job_finder_v2.models.service.AccountService
+import com.example.smart_job_finder_v2.models.service.StorageService
 import com.example.smart_job_finder_v2.ui.SJFViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val accountService: AccountService) :
+class HomeViewModel @Inject constructor(
+    private val accountService: AccountService,
+    storageService: StorageService
+) :
     SJFViewModel() {
+
+    val jobs = storageService.jobs
 
     private val _showBottomSheet = mutableStateOf(false)
     val showBottomSheet: State<Boolean> = _showBottomSheet

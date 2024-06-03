@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,5 +20,6 @@ class MainActivity : ComponentActivity() {
 
     private fun configureFirebaseService() {
         Firebase.auth
+        Firebase.firestore
     }
 }

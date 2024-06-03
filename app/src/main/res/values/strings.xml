@@ -7,4 +7,7 @@
     <string name="RegisterButton">Register</string>
     <string name="Apply">Apply</string>
     <string name="JobDescription">Description</string>
+    <string name="PostBottomBar" translatable="false">Post</string>
+    <string name="LikeBottomBar" translatable="false">Likes</string>
+    <string name="HomeBottomBar" translatable="false">Home</string>
 </resources>

@@ -202,7 +202,7 @@ fun JobBottomSheet(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = selectedJob!!.postedDate,
+                            text = selectedJob!!.postedDate.toString(),
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold
                         )

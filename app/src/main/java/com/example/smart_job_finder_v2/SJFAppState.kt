@@ -4,7 +4,7 @@ import androidx.compose.runtime.Stable
 import androidx.navigation.NavHostController
 
 @Stable
-class JSFAppState(val navController: NavHostController) {
+class SJFAppState(val navController: NavHostController) {
     fun popUp() {
         navController.popBackStack()
     }
