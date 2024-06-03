@@ -21,6 +21,9 @@ import androidx.compose.ui.Modifier
 fun ApplyScreen(popUp: () -> Unit) {
     Scaffold(
         topBar = {
+            /**
+             * ToDo: Rename file to Apply Page or something and add string.xml for translation and static strings
+             */
             CenterAlignedTopAppBar(
                 title = { Text(text = "Details of Job") },
                 navigationIcon = {
