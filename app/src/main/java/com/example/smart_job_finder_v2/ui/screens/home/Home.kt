@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.SJFAppState
 import com.example.smart_job_finder_v2.Screen
 import com.example.smart_job_finder_v2.models.JobModel
+import com.example.smart_job_finder_v2.models.UserData
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
 import com.example.smart_job_finder_v2.ui.widgets.JobBottomSheet
 import com.example.smart_job_finder_v2.ui.widgets.JobItem
@@ -103,13 +105,25 @@ fun HomeContent(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val jobs by viewModel.jobs.collectAsState(emptyList())
+    val userData by viewModel.userData.collectAsState()
 
     Box(modifier = Modifier.padding(padding)) {
 
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(jobs) { job ->
-                JobItem(job, viewModel = viewModel)
+        if (userData == null) {
+            CircularProgressIndicator()
+        } else {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(jobs) { job ->
+                    userData?.let {
+                        println("USER DATA: ${it.likedJobID}")
+                        JobItem(
+                            job,
+                            viewModel = viewModel,
+                            isLiked = it.likedJobID.contains(job.id)
+                        )
 
+                    }
+                }
             }
         }
     }

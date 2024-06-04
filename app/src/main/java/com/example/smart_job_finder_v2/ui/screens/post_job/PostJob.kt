@@ -13,6 +13,7 @@ import com.example.smart_job_finder_v2.SJFAppState
 import com.example.smart_job_finder_v2.models.JobModel
 import com.example.smart_job_finder_v2.ui.screens.home.ToolBar
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
+import com.example.smart_job_finder_v2.ui.widgets.SJFTextField
 import com.google.firebase.Timestamp
 
 @Composable
@@ -40,118 +41,44 @@ fun PostJobScreen(appState: SJFAppState) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                BasicTextField(
+                SJFTextField(
                     value = title,
                     onValueChange = { title = it },
                     modifier = Modifier.fillMaxWidth(),
-                    decorationBox = { innerTextField ->
-                        Row(
-                            Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth()
-                        ) {
-                            if (title.isEmpty()) {
-                                Text(
-                                    "Title",
-                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
-                                )
-                            }
-                            innerTextField()
-                        }
-                    }
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                BasicTextField(
+                SJFTextField(
                     value = company,
                     onValueChange = { company = it },
                     modifier = Modifier.fillMaxWidth(),
-                    decorationBox = { innerTextField ->
-                        Row(
-                            Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth()
-                        ) {
-                            if (company.isEmpty()) {
-                                Text(
-                                    "Company",
-                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
-                                )
-                            }
-                            innerTextField()
-                        }
-                    }
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                BasicTextField(
+                SJFTextField(
                     value = location,
                     onValueChange = { location = it },
                     modifier = Modifier.fillMaxWidth(),
-                    decorationBox = { innerTextField ->
-                        Row(
-                            Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth()
-                        ) {
-                            if (location.isEmpty()) {
-                                Text(
-                                    "Location",
-                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
-                                )
-                            }
-                            innerTextField()
-                        }
-                    }
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                BasicTextField(
+                SJFTextField(
                     value = type,
                     onValueChange = { type = it },
                     modifier = Modifier.fillMaxWidth(),
-                    decorationBox = { innerTextField ->
-                        Row(
-                            Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth()
-                        ) {
-                            if (type.isEmpty()) {
-                                Text(
-                                    "Type",
-                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
-                                )
-                            }
-                            innerTextField()
-                        }
-                    }
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                BasicTextField(
+                SJFTextField(
                     value = description,
                     onValueChange = { description = it },
                     modifier = Modifier.fillMaxWidth(),
-                    decorationBox = { innerTextField ->
-                        Row(
-                            Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth()
-                        ) {
-                            if (description.isEmpty()) {
-                                Text(
-                                    "Description",
-                                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
-                                )
-                            }
-                            innerTextField()
-                        }
-                    }
-                )
+
+                    )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
