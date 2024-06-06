@@ -6,4 +6,9 @@
     <string name="RegisterButton">Registrieren</string>
     <string name="Apply">Bewerben</string>
     <string name="JobDescription">Beschreibung</string>
+    <string name="JobTitle">Titel</string>
+    <string name="Company">Unternehmen</string>
+    <string name="Location">Standort</string>
+    <string name="Type">Zeitmodel</string>
+    <string name="Description">Beschreibung</string>
 </resources>

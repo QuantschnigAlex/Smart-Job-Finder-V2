@@ -1,14 +1,15 @@
 package com.example.smart_job_finder_v2.ui.screens.post_job
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.smart_job_finder_v2.R
 import com.example.smart_job_finder_v2.SJFAppState
 import com.example.smart_job_finder_v2.models.JobModel
 import com.example.smart_job_finder_v2.ui.screens.home.ToolBar
@@ -42,6 +43,7 @@ fun PostJobScreen(appState: SJFAppState) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 SJFTextField(
+                    placeholder = { Text(stringResource(id = R.string.JobTitle)) },
                     value = title,
                     onValueChange = { title = it },
                     modifier = Modifier.fillMaxWidth(),
@@ -50,6 +52,7 @@ fun PostJobScreen(appState: SJFAppState) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 SJFTextField(
+                    placeholder = { Text(stringResource(id = R.string.Company)) },
                     value = company,
                     onValueChange = { company = it },
                     modifier = Modifier.fillMaxWidth(),
@@ -58,6 +61,7 @@ fun PostJobScreen(appState: SJFAppState) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 SJFTextField(
+                    placeholder = { Text(stringResource(id = R.string.Location)) },
                     value = location,
                     onValueChange = { location = it },
                     modifier = Modifier.fillMaxWidth(),
@@ -66,6 +70,7 @@ fun PostJobScreen(appState: SJFAppState) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 SJFTextField(
+                    placeholder = { Text(stringResource(id = R.string.Type)) },
                     value = type,
                     onValueChange = { type = it },
                     modifier = Modifier.fillMaxWidth(),
@@ -74,11 +79,11 @@ fun PostJobScreen(appState: SJFAppState) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 SJFTextField(
+                    placeholder = { Text(stringResource(id = R.string.Description)) },
                     value = description,
                     onValueChange = { description = it },
                     modifier = Modifier.fillMaxWidth(),
-
-                    )
+                )
 
                 Spacer(modifier = Modifier.height(8.dp))
 

@@ -10,4 +10,9 @@
     <string name="PostBottomBar" translatable="false">Post</string>
     <string name="LikeBottomBar" translatable="false">Likes</string>
     <string name="HomeBottomBar" translatable="false">Home</string>
+    <string name="JobTitle">Title</string>
+    <string name="Company">Company</string>
+    <string name="Location">Location\n</string>
+    <string name="Type">Type</string>
+    <string name="Description">Description</string>
 </resources>
