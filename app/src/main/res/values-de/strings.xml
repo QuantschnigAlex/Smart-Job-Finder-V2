@@ -11,8 +11,4 @@
     <string name="Location">Standort</string>
     <string name="Type">Zeitmodel</string>
     <string name="Description">Beschreibung</string>
-    <string name="PostJob">Job posten</string>
-    <string name="NOLikedJobs">Füge jobs hinzu</string>
-    <string name="PostedSuccessfully">Job wurde erfolgreich geposted!</string>
-    <string name="Confirm">Bestätigen</string>
 </resources>

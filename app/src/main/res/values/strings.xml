@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Smart Job Finder</string>
+    <string name="app_name" translatable="false">smart_job_finder_v2</string>
     <string name="LogInToFinder" translatable="false">LogIn to Smart Job Finder</string>
     <string name="EmailPlaceholder">E-Mail</string>
     <string name="PasswordPlaceholder">Password</string>
@@ -12,11 +12,7 @@
     <string name="HomeBottomBar" translatable="false">Home</string>
     <string name="JobTitle">Title</string>
     <string name="Company">Company</string>
-    <string name="Location">Location</string>
+    <string name="Location">Location\n</string>
     <string name="Type">Type</string>
     <string name="Description">Description</string>
-    <string name="PostJob">Post Job</string>
-    <string name="NOLikedJobs">Like some jobs</string>
-    <string name="PostedSuccessfully">Job posted successfully!</string>
-    <string name="Confirm">Confirm</string>
 </resources>
