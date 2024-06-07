@@ -19,10 +19,12 @@ import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -43,8 +45,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.R
 import com.example.smart_job_finder_v2.Screen
 import com.example.smart_job_finder_v2.ui.screens.home.HomeViewModel
+import com.google.firebase.Timestamp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,12 +103,16 @@ fun JobBottomSheet(
                         },
                         modifier = Modifier
                             .padding(end = 22.dp, top = 22.dp)
-                            .background(Color.White, CircleShape)
+                            .background(Color.White, CircleShape),
+                        colors = IconButtonDefaults.iconButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onBackground
+                        )
                     ) {
                         Icon(
                             Icons.Outlined.Close,
                             contentDescription = "close",
-                            Modifier.size(34.dp)
+                            Modifier.size(34.dp),
+                            Color.Black
                         )
                     }
                 }
@@ -218,8 +227,9 @@ fun JobBottomSheet(
                             .padding(bottom = 8.dp),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
+                        val postedDate = formatTimestampToDate(selectedJob!!.postedDate)
                         Text(
-                            text = selectedJob!!.postedDate.toString(),
+                            text = postedDate,
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold
                         )
@@ -239,7 +249,7 @@ fun JobBottomSheet(
                     }
                 }
                 item {
-                    ElevatedButton(
+                    Button(
                         onClick = {
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
                                 viewModel.dismissBottomSheet()
@@ -260,4 +270,12 @@ fun JobBottomSheet(
             }
         }
     }
+}
+
+@Composable
+fun formatTimestampToDate(timestamp: Timestamp): String {
+    val instant = timestamp.toDate().toInstant()
+    val localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate()
+    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    return localDate.format(formatter)
 }
