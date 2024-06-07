@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.smart_job_finder_v2.ui.screens.ApplyScreen
-import com.example.smart_job_finder_v2.ui.screens.LikesScreen
+import com.example.smart_job_finder_v2.ui.screens.likes.LikesScreen
 import com.example.smart_job_finder_v2.ui.screens.home.HomeScreen
 import com.example.smart_job_finder_v2.ui.screens.post_job.PostJobScreen
 import com.example.smart_job_finder_v2.ui.screens.sign_in.SignInScreen

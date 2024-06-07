@@ -16,7 +16,7 @@ class StorageServiceImpl @Inject constructor(private val auth: AccountService) :
         get() = Firebase.firestore.collection(JOB_COLLECTION).dataObjects()
 
     override suspend fun createJob(job: JobModel) {
-        TODO("Not yet implemented")
+        Firebase.firestore.collection(JOB_COLLECTION).add(job)
     }
 
 

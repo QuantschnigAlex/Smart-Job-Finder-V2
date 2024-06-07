@@ -1,7 +1,6 @@
 package com.example.smart_job_finder_v2.ui.widgets
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,12 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,7 +36,6 @@ fun JobItem(
     isLiked: Boolean,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    var isLikedState by remember { mutableStateOf(isLiked) }
     Card(
         onClick = {
             viewModel.showBottomSheet(jobModel)
@@ -97,10 +89,9 @@ fun JobItem(
             }
             IconButton(onClick = {
                 viewModel.toggleLike(jobModel)
-                isLikedState = !isLikedState
             }, modifier = Modifier.padding(top = 16.dp)) {
 
-                if (isLikedState) {
+                if (isLiked) {
                     Icon(
                         Icons.Filled.Favorite,
                         contentDescription = "Settings", modifier = Modifier.size(38.dp),

@@ -18,9 +18,11 @@ fun SJFTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     trailingIcon: Painter? = null,
     trailingIconContentDescription: String? = null,
-    visualTransformation: VisualTransformation = VisualTransformation.None
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    isError: Boolean = false
 ) {
     OutlinedTextField(
+        isError = isError,
         value = value,
         onValueChange = onValueChange,
         placeholder = placeholder,

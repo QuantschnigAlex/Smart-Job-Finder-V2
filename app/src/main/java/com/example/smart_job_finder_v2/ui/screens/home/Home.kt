@@ -23,16 +23,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.SJFAppState
 import com.example.smart_job_finder_v2.Screen
-import com.example.smart_job_finder_v2.models.JobModel
-import com.example.smart_job_finder_v2.models.UserData
+import com.example.smart_job_finder_v2.R
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
 import com.example.smart_job_finder_v2.ui.widgets.JobBottomSheet
 import com.example.smart_job_finder_v2.ui.widgets.JobItem
-import com.google.firebase.Timestamp
-import kotlinx.coroutines.flow.forEach
 
 @Composable
 fun HomeScreen(
@@ -52,7 +50,8 @@ fun HomeScreen(
                 onSettingClick = {
                     viewModel.onSignOut()
                     clearAndNavigate(Screen.SplashScreen.route)
-                }
+                },
+                title = { Text(text = stringResource(id = R.string.app_name)) }
             )
         },
         bottomBar = {
@@ -70,16 +69,11 @@ fun HomeScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ToolBar(
+    title: @Composable () -> Unit = {},
     onNavigationClick: () -> Unit,
-    onSettingClick: () -> Unit
+    onSettingClick: () -> Unit,
 ) {
     CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            titleContentColor = MaterialTheme.colorScheme.onPrimary,
-            navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
-            actionIconContentColor = MaterialTheme.colorScheme.onSecondary
-        ),
         navigationIcon = {
             IconButton(onClick = onNavigationClick) {
                 Icon(
@@ -88,7 +82,7 @@ fun ToolBar(
                 )
             }
         },
-        title = { Text("Smart Job Finder") },
+        title = { title() },
         actions = {
             IconButton(onClick = onSettingClick) {
                 Icon(
@@ -102,7 +96,7 @@ fun ToolBar(
 @Composable
 fun HomeContent(
     padding: PaddingValues,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel
 ) {
     val jobs by viewModel.jobs.collectAsState(emptyList())
     val userData by viewModel.userData.collectAsState()

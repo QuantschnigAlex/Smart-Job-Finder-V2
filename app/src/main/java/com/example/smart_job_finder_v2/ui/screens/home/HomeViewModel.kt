@@ -13,6 +13,7 @@ import com.example.smart_job_finder_v2.ui.SJFViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,10 +35,13 @@ class HomeViewModel @Inject constructor(
     val selectedJobModel: State<JobModel?> = _selectedJobModel
 
     private val _isLikedJob = mutableStateOf(false)
-    val isLikedJob: State<Boolean> = _isLikedJob
+//    val isLikedJob: State<Boolean> = _isLikedJob
+
+    val likedJobs: MutableStateFlow<List<JobModel>> = MutableStateFlow(emptyList())
 
     init {
         fetchUserData()
+        observeJobs()
     }
 
     fun isLiked(job: JobModel): Boolean {
@@ -50,7 +54,8 @@ class HomeViewModel @Inject constructor(
             try {
                 val userId = accountService.currentUserId
                 storageService.toggleLike(userId, job.id)
-                _isLikedJob.value = !_isLikedJob.value
+                fetchUserData()
+                filterLikedJobs()
             } catch (e: Exception) {
                 throw Exception("Error toggling like")
             }
@@ -63,6 +68,7 @@ class HomeViewModel @Inject constructor(
                 val userId = accountService.currentUserId
                 val userData = storageService.getUserData(userId)
                 _userData.value = userData
+                filterLikedJobs()
             } catch (e: Exception) {
 
                 throw Exception("Error fetching user data")
@@ -70,6 +76,23 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    private fun filterLikedJobs() {
+        viewModelScope.launch {
+            val likedJobIds = userData.value?.likedJobID ?: emptyList()
+            jobs.collect { allJobs ->
+                val filteredJobs = allJobs.filter { likedJobIds.contains(it.id) }
+                likedJobs.value = filteredJobs
+            }
+        }
+    }
+
+    private fun observeJobs() {
+        viewModelScope.launch {
+            jobs.collect {
+                filterLikedJobs()
+            }
+        }
+    }
 
     fun onSignOut() {
         launchCatching {
