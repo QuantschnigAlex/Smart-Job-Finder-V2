@@ -19,4 +19,7 @@
     <string name="NOLikedJobs">Like some jobs</string>
     <string name="PostedSuccessfully">Job posted successfully!</string>
     <string name="Confirm">Confirm</string>
+    <string name="PasswordPlaceholderAgain">Re-Enter Password</string>
+    <string name="FirstName">Firstname</string>
+    <string name="LastName">Surname</string>
 </resources>

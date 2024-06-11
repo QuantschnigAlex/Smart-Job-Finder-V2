@@ -34,10 +34,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.R
+import com.example.smart_job_finder_v2.Screen
 
 @Composable
 fun SignInScreen(
     openAndPopUp: (String, String) -> Unit,
+    navigate: (String) -> Unit,
     viewModel: SignInViewModel = hiltViewModel(),
 ) {
 
@@ -116,7 +118,7 @@ fun SignInScreen(
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    TextButton(onClick = { viewModel.onSignUpClick(openAndPopUp) }) {
+                    TextButton(onClick = { navigate(Screen.RegisterScreen.route) }) {
                         Text(text = stringResource(id = R.string.RegisterButton))
                     }
                     ElevatedButton(onClick = { viewModel.onSignInClick(openAndPopUp) }) {

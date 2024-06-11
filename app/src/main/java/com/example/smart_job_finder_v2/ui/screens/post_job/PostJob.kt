@@ -1,7 +1,6 @@
 package com.example.smart_job_finder_v2.ui.screens.post_job
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text

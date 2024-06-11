@@ -44,6 +44,11 @@ class StorageServiceImpl @Inject constructor(private val auth: AccountService) :
         userRef.update("likedJobID", newLikedJobID)
     }
 
+    override suspend fun createUserData(userData: UserData) {
+        val userID = auth.currentUserId
+        Firebase.firestore.collection(USERDATA_COLLECTION).document(userID).set(userData)
+    }
+
     companion object {
         private const val JOB_COLLECTION = "jobs"
         private const val USERDATA_COLLECTION = "users"

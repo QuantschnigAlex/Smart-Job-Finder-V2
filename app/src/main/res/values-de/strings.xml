@@ -15,4 +15,7 @@
     <string name="NOLikedJobs">Füge jobs hinzu</string>
     <string name="PostedSuccessfully">Job wurde erfolgreich geposted!</string>
     <string name="Confirm">Bestätigen</string>
+    <string name="PasswordPlaceholderAgain">Passwort Wiederholen</string>
+    <string name="FirstName">Vorname</string>
+    <string name="LastName">Nachname</string>
 </resources>

@@ -12,4 +12,5 @@ interface StorageService {
     suspend fun getUserData(userID: String): UserData
 
     suspend fun toggleLike(userID: String, jobID: String)
+    suspend fun createUserData(userData: UserData)
 }

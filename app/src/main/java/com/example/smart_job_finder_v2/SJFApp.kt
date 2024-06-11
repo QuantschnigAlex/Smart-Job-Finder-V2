@@ -16,6 +16,7 @@ import com.example.smart_job_finder_v2.ui.screens.ApplyScreen
 import com.example.smart_job_finder_v2.ui.screens.likes.LikesScreen
 import com.example.smart_job_finder_v2.ui.screens.home.HomeScreen
 import com.example.smart_job_finder_v2.ui.screens.post_job.PostJobScreen
+import com.example.smart_job_finder_v2.ui.screens.register.RegisterScreen
 import com.example.smart_job_finder_v2.ui.screens.sign_in.SignInScreen
 import com.example.smart_job_finder_v2.ui.screens.splash.SplashScreen
 import com.example.smart_job_finder_v2.ui.theme.Smart_job_finder_v2Theme
@@ -57,7 +58,7 @@ fun NavGraphBuilder.sjfGraph(appState: SJFAppState) {
         SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
     }
     composable(Screen.SignInScreen.route) {
-        SignInScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })
+        SignInScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp)},  navigate = { route -> appState.navigate(route) },)
     }
     composable(Screen.LikesScreen.route) {
         LikesScreen(appState)
@@ -67,6 +68,8 @@ fun NavGraphBuilder.sjfGraph(appState: SJFAppState) {
     }
     composable(Screen.PostScreen.route) {
         PostJobScreen(appState)
-
+    }
+    composable(Screen.RegisterScreen.route) {
+        RegisterScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp)})
     }
 }
