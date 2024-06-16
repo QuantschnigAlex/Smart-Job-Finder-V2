@@ -22,4 +22,6 @@
     <string name="PasswordPlaceholderAgain">Re-Enter Password</string>
     <string name="FirstName">Firstname</string>
     <string name="LastName">Surname</string>
+    <string name="Or">OR</string>
+    <string name="RegisterToFinder" translatable="false">Register to Smart Job Finder</string>
 </resources>

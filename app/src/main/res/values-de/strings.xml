@@ -18,4 +18,5 @@
     <string name="PasswordPlaceholderAgain">Passwort Wiederholen</string>
     <string name="FirstName">Vorname</string>
     <string name="LastName">Nachname</string>
+    <string name="Or">ODER</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -114,18 +115,47 @@ fun SignInScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
+                ElevatedButton(
+                    onClick = { viewModel.onSignInClick(openAndPopUp) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    TextButton(onClick = { navigate(Screen.RegisterScreen.route) }) {
-                        Text(text = stringResource(id = R.string.RegisterButton))
-                    }
-                    ElevatedButton(onClick = { viewModel.onSignInClick(openAndPopUp) }) {
-                        Text(text = stringResource(id = R.string.LogInButton))
-                    }
+                    Text(text = stringResource(id = R.string.LogInButton))
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Divider(modifier = Modifier.weight(1f))
+                    Text(
+                        text = stringResource(id = R.string.Or),
+                        modifier = Modifier.padding(horizontal = 8.dp)
+                    )
+                    Divider(modifier = Modifier.weight(1f))
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                TextButton(
+                    onClick = { navigate(Screen.RegisterScreen.route) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = stringResource(id = R.string.RegisterButton))
                 }
             }
         }
     }
 }
+
+//Row(
+//horizontalArrangement = Arrangement.SpaceEvenly,
+//modifier = Modifier.fillMaxWidth()
+//) {
+//    TextButton(onClick = { navigate(Screen.RegisterScreen.route) }) {
+//        Text(text = stringResource(id = R.string.RegisterButton))
+//    }
+//    ElevatedButton(onClick = { viewModel.onSignInClick(openAndPopUp) }) {
+//        Text(text = stringResource(id = R.string.LogInButton))
+//    }
