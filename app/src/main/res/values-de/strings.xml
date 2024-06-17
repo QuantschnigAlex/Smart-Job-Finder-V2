@@ -19,4 +19,6 @@
     <string name="FirstName">Vorname</string>
     <string name="LastName">Nachname</string>
     <string name="Or">ODER</string>
+    <string name="ProfileNav">Profil</string>
+    <string name="AlreadyHaveAnAccount">Schon einen Account?</string>
 </resources>

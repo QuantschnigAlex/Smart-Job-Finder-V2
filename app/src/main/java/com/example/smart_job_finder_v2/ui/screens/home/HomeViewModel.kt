@@ -2,8 +2,6 @@ package com.example.smart_job_finder_v2.ui.screens.home
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.smart_job_finder_v2.models.JobModel
 import com.example.smart_job_finder_v2.models.UserData
@@ -13,7 +11,6 @@ import com.example.smart_job_finder_v2.ui.SJFViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

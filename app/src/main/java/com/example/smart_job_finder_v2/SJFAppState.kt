@@ -1,6 +1,9 @@
 package com.example.smart_job_finder_v2
 
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 
 @Stable
