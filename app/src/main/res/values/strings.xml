@@ -24,4 +24,7 @@
     <string name="LastName">Surname</string>
     <string name="Or">OR</string>
     <string name="RegisterToFinder" translatable="false">Register to Smart Job Finder</string>
+    <string name="ProfileNav">Profile</string>
+    <string name="LogOutNav" translatable="false">LogOut</string>
+    <string name="AlreadyHaveAnAccount">Already have an Account?</string>
 </resources>

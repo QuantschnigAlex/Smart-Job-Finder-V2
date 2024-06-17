@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.R
 import com.example.smart_job_finder_v2.SJFAppState
-import com.example.smart_job_finder_v2.ui.screens.home.ToolBar
 import com.example.smart_job_finder_v2.ui.widgets.AnimatedPreloader
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
 import com.example.smart_job_finder_v2.ui.widgets.SJFTextField
@@ -33,13 +32,6 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
 
     Scaffold(
         bottomBar = { BottomBar(appState = appState) },
-        topBar = {
-            ToolBar(
-                onNavigationClick = { /*TODO*/ },
-                title = { Text(text = stringResource(id = R.string.PostJob)) }) {
-
-            }
-        },
         content = { padding ->
             Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
                 Column(
