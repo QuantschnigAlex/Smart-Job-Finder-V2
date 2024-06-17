@@ -19,7 +19,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.smart_job_finder_v2.ui.screens.ApplyScreen
 import com.example.smart_job_finder_v2.ui.screens.likes.LikesScreen
 import com.example.smart_job_finder_v2.ui.screens.home.HomeScreen
 import com.example.smart_job_finder_v2.ui.screens.post_job.PostJobScreen
@@ -77,7 +76,7 @@ fun JSFApp() {
 
 fun shouldShowTopBar(route: String?): Boolean {
     return when (route) {
-        Screen.SignInScreen.route, Screen.RegisterScreen.route, Screen.SplashScreen.route, Screen.ApplyScreen.route -> false
+        Screen.SignInScreen.route, Screen.RegisterScreen.route, Screen.SplashScreen.route -> false
         else -> true
     }
 }
@@ -92,7 +91,6 @@ fun NavGraphBuilder.sjfGraph(appState: SJFAppState) {
     composable(Screen.HomeScreen.route) {
         HomeScreen(
             appState,
-            navigate = { route -> appState.navigate(route) },
             clearAndNavigate = { route -> appState.clearAndNavigate(route) })
     }
     composable(Screen.SplashScreen.route) {
@@ -106,9 +104,6 @@ fun NavGraphBuilder.sjfGraph(appState: SJFAppState) {
     }
     composable(Screen.LikesScreen.route) {
         LikesScreen(appState)
-    }
-    composable(Screen.ApplyScreen.route) {
-        ApplyScreen(popUp = { appState.popUp() })
     }
     composable(Screen.PostScreen.route) {
         PostJobScreen(appState)

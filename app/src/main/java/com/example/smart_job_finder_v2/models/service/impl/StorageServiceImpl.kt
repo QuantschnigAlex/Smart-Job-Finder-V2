@@ -19,7 +19,6 @@ class StorageServiceImpl @Inject constructor(private val auth: AccountService) :
         Firebase.firestore.collection(JOB_COLLECTION).add(job)
     }
 
-
     override suspend fun deleteJob(jobID: Int) {
         TODO("Not yet implemented")
     }

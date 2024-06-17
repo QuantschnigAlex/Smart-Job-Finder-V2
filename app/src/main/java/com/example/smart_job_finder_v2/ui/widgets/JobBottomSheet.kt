@@ -17,10 +17,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,27 +43,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.R
-import com.example.smart_job_finder_v2.Screen
 import com.example.smart_job_finder_v2.ui.screens.home.HomeViewModel
 import com.google.firebase.Timestamp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JobBottomSheet(
     viewModel: HomeViewModel = hiltViewModel(),
     scope: CoroutineScope,
-    navigate: (String) -> Unit
 ) {
     val showBottomSheet by viewModel.showBottomSheet
     val sheetState = rememberModalBottomSheetState(
+        //Comment out if you want the bottom sheet to be fully expanded
 //        skipPartiallyExpanded = true,
 
     )
     val selectedJob by viewModel.selectedJobModel
+    val context = LocalContext.current
 
     LaunchedEffect(showBottomSheet) {
         if (showBottomSheet) {
@@ -209,6 +212,25 @@ fun JobBottomSheet(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
+                            text = selectedJob!!.email,
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Icon(
+                            Icons.Outlined.Email,
+                            contentDescription = "mail",
+                            modifier = Modifier.size(36.dp)
+                        )
+                    }
+                }
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
                             text = selectedJob!!.location,
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold
@@ -254,7 +276,16 @@ fun JobBottomSheet(
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
                                 viewModel.dismissBottomSheet()
                             }
-                            navigate(Screen.ApplyScreen.route)
+                            // Open the email app with the email address pre-filled
+                            val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                                data = Uri.parse("mailto:")
+                                putExtra(Intent.EXTRA_EMAIL, arrayOf(selectedJob?.email))
+                                putExtra(
+                                    Intent.EXTRA_SUBJECT,
+                                    "Job Application: ${selectedJob?.title}"
+                                )
+                            }
+                            context.startActivity(Intent.createChooser(emailIntent, "Send Email"))
                         },
                         modifier = Modifier
                             .fillMaxWidth()

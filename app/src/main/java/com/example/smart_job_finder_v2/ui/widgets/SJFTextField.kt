@@ -19,7 +19,8 @@ fun SJFTextField(
     trailingIcon: Painter? = null,
     trailingIconContentDescription: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    isError: Boolean = false
+    isError: Boolean = false,
+    maxLines: Int = 1
 ) {
     OutlinedTextField(
         isError = isError,
@@ -28,6 +29,7 @@ fun SJFTextField(
         placeholder = placeholder,
         modifier = modifier,
         singleLine = singleLine,
+        maxLines = maxLines,
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,
         trailingIcon = {

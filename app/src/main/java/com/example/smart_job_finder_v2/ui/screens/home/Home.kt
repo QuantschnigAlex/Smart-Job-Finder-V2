@@ -22,7 +22,6 @@ import com.example.smart_job_finder_v2.ui.widgets.JobItem
 @Composable
 fun HomeScreen(
     appState: SJFAppState,
-    navigate: (String) -> Unit,
     clearAndNavigate: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -36,7 +35,7 @@ fun HomeScreen(
         },
         content = { padding ->
             HomeContent(padding, viewModel)
-            JobBottomSheet(viewModel = viewModel, scope = scope, navigate)
+            JobBottomSheet(viewModel = viewModel, scope = scope)
         }
     )
 }

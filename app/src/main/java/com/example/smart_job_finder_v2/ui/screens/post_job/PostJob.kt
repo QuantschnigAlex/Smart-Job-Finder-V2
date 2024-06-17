@@ -1,6 +1,8 @@
 package com.example.smart_job_finder_v2.ui.screens.post_job
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -29,18 +31,27 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
     val description = viewModel.description.collectAsState()
     val errorMessage = viewModel.errorMessage.collectAsState()
     val postSuccess by viewModel.postSuccess.collectAsState()
+    val email = viewModel.email.collectAsState()
 
     Scaffold(
         bottomBar = { BottomBar(appState = appState) },
         content = { padding ->
-            Box(modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)) {
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 16.dp)
+                    .fillMaxSize()
+                    .verticalScroll(
+                        rememberScrollState()
+                    )
+            ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(padding)
                         .align(Alignment.Center),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
+                    horizontalAlignment = Alignment.CenterHorizontally,
+
+                    ) {
 
                     if (postSuccess) {
                         SuccessDialog {
@@ -70,6 +81,14 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
+                    SJFTextField(
+                        placeholder = { Text(stringResource(id = R.string.EmailPlaceholder)) },
+                        value = email.value,
+                        onValueChange = { viewModel.updateEmail(it) },
+                        modifier = Modifier.fillMaxWidth(),
+                        isError = errorMessage.value == "Email is empty"
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
 
                     SJFTextField(
                         placeholder = { Text(stringResource(id = R.string.Location)) },
@@ -90,24 +109,27 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
-
                     SJFTextField(
                         placeholder = { Text(stringResource(id = R.string.Description)) },
                         value = description.value,
+                        singleLine = false,
+                        maxLines = 8,
                         onValueChange = { viewModel.updateDescription(it) },
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp),
                         isError = errorMessage.value == "Description is empty"
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+
                     if (errorMessage.value?.isNotEmpty() == true) {
+                        Spacer(modifier = Modifier.height(16.dp))
                         Text(
                             text = errorMessage.value!!,
                             modifier = Modifier.align(Alignment.CenterHorizontally),
                             color = androidx.compose.ui.graphics.Color.Red
                         )
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                    Spacer(modifier = Modifier.height(8.dp))
                     Button(
                         onClick = {
                             viewModel.postJob()

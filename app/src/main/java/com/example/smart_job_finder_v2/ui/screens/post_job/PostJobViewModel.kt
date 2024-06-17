@@ -5,6 +5,7 @@ import com.example.smart_job_finder_v2.models.service.StorageService
 import com.example.smart_job_finder_v2.ui.SJFViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,6 +18,7 @@ class PostJobViewModel @Inject constructor(
     val type = MutableStateFlow("")
     val description = MutableStateFlow("")
     val postSuccess = MutableStateFlow(false)
+    val email = MutableStateFlow("")
 
     fun postJob(
     ) {
@@ -37,12 +39,21 @@ class PostJobViewModel @Inject constructor(
                 throw Exception("Description is empty")
             }
 
+            if (!validateField(email.value)) {
+                throw Exception("Email is empty")
+            }
+            
+            if (!isValidEmail(email.value)) {
+                throw Exception("Email is not valid")
+            }
+
             val job = JobModel(
                 title = title.value,
                 company = company.value,
                 location = location.value,
                 type = type.value,
-                description = description.value
+                description = description.value,
+                email = email.value
             )
             storageService.createJob(job)
             postSuccess.value = true
@@ -51,6 +62,7 @@ class PostJobViewModel @Inject constructor(
             location.value = ""
             type.value = ""
             description.value = ""
+            email.value = ""
         }
 
 
@@ -80,4 +92,17 @@ class PostJobViewModel @Inject constructor(
         return text.isNotEmpty()
     }
 
+    fun updateEmail(newEmail: String) {
+        email.value = newEmail
+    }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = "^[A-Za-z0-9+_.-]+@(.+)$"
+
+        val pattern = Pattern.compile(emailPattern)
+
+        val matcher = pattern.matcher(email)
+
+        return matcher.matches()
+    }
 }

@@ -11,5 +11,6 @@ data class JobModel(
     val type: String = "",
     val description: String = "",
     val imageURL: String = "",
+    val email: String = "",
     val postedDate: Timestamp = Timestamp.now(),
 )

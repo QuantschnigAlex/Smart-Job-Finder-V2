@@ -40,6 +40,7 @@ class RegisterViewModel @Inject constructor(
     fun updateConfirmPassword(newConfirmPassword: String) {
         confirmPassword.value = newConfirmPassword
     }
+
     fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
 
         launchCatching {
@@ -74,10 +75,8 @@ class RegisterViewModel @Inject constructor(
 
             openAndPopUp(Screen.HomeScreen.route, Screen.SignInScreen.route)
         }
+    }
 
-
-
-}
     private fun isValidEmail(email: String): Boolean {
         val emailPattern = "^[A-Za-z0-9+_.-]+@(.+)$"
 
