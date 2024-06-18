@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
+import android.os.Looper
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,8 +37,17 @@ import com.example.smart_job_finder_v2.ui.widgets.BottomBar
 import com.example.smart_job_finder_v2.ui.widgets.SJFTextField
 import com.example.smart_job_finder_v2.ui.widgets.SuccessDialog
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationAvailability
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.Locale
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 @Composable
 fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewModel()) {
@@ -51,13 +61,16 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
     val email = viewModel.email.collectAsState()
     val context = LocalContext.current
     val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
+    val coroutineScope = rememberCoroutineScope()
 
     val permissionLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
                 Log.d("PostJobScreen", "Location permission granted")
-                fetchLocation(context, fusedLocationClient) { city ->
-                    viewModel.updateLocation(city ?: "Location not available")
+                coroutineScope.launch {
+                    fetchLocation(context, fusedLocationClient, coroutineScope) { city ->
+                        viewModel.updateLocation(city ?: "Location not available")
+                    }
                 }
             } else {
                 Log.d("PostJobScreen", "Location permission denied")
@@ -137,11 +150,20 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
                                         context,
                                         Manifest.permission.ACCESS_FINE_LOCATION
                                     ) == PackageManager.PERMISSION_GRANTED -> {
-                                        fetchLocation(context, fusedLocationClient) { city ->
-                                            viewModel.updateLocation(
-                                                city ?: "Location not available"
-                                            )
+                                        coroutineScope.launch {
+                                            fetchLocation(
+                                                context,
+                                                fusedLocationClient,
+                                                coroutineScope
+                                            ) { city ->
+                                                if (city != null) {
+                                                    viewModel.updateLocation(city)
+                                                } else {
+                                                    Log.d("PostJobScreen", "City is null or empty")
+                                                }
+                                            }
                                         }
+
                                     }
 
                                     else -> {
@@ -201,29 +223,95 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
     )
 }
 
-fun fetchLocation(
+
+suspend fun fetchLocation(
     context: Context,
     fusedLocationClient: FusedLocationProviderClient,
+    coroutineScope: CoroutineScope,
     onCityFetched: (String?) -> Unit
 ) {
     try {
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            location?.let {
-                val cityName = getCityName(context, it)
+            if (location != null) {
+                val cityName = getCityName(context, location)
                 onCityFetched(cityName)
                 Log.d("PostJobScreen", "Current city: $cityName")
-            } ?: run {
-                onCityFetched(null)
-                Log.d("PostJobScreen", "Location not available")
+            } else {
+                Log.d("PostJobScreen", "Location is null, requesting new location")
+                coroutineScope.launch {
+                    val newLocation = requestNewLocationData(fusedLocationClient)
+                    val newCityName = newLocation?.let { getCityName(context, it) }
+                    onCityFetched(newCityName)
+                    Log.d("PostJobScreen", "New city: $newCityName")
+                }
             }
+        }.addOnFailureListener { e ->
+            Log.e("PostJobScreen", "Error fetching location", e)
+            onCityFetched(null)
         }
     } catch (e: SecurityException) {
         Log.e("PostJobScreen", "Location permission missing", e)
+        onCityFetched(null)
+    } catch (e: Exception) {
+        Log.e("PostJobScreen", "Error fetching location", e)
+        onCityFetched(null)
+    }
+}
+
+
+suspend fun requestNewLocationData(fusedLocationClient: FusedLocationProviderClient): Location? {
+    return suspendCancellableCoroutine { continuation ->
+        val locationRequest = LocationRequest.create().apply {
+            interval = 0
+            fastestInterval = 0
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            numUpdates = 1
+        }
+
+        val locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                super.onLocationResult(locationResult)
+                if (!continuation.isCompleted) {
+                    continuation.resume(locationResult.lastLocation)
+                }
+            }
+
+            override fun onLocationAvailability(locationAvailability: LocationAvailability) {
+                super.onLocationAvailability(locationAvailability)
+                if (!locationAvailability.isLocationAvailable && !continuation.isCompleted) {
+                    continuation.resumeWithException(Exception("Location not available"))
+                }
+            }
+        }
+
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.getMainLooper()
+        ).addOnFailureListener { e ->
+            if (!continuation.isCompleted) {
+                continuation.resumeWithException(e)
+            }
+        }
+
+        continuation.invokeOnCancellation {
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+        }
     }
 }
 
 fun getCityName(context: Context, location: Location): String? {
-    val geocoder = Geocoder(context, Locale.getDefault())
-    val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
-    return addresses?.get(0)?.locality
+    return try {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        val addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+        if (addresses?.isNotEmpty() == true) {
+            addresses[0].locality
+        } else {
+            Log.d("PostJobScreen", "No address found")
+            null
+        }
+    } catch (e: Exception) {
+        Log.e("PostJobScreen", "Geocoder failed", e)
+        null
+    }
 }
