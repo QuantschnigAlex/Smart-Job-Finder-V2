@@ -7,7 +7,10 @@ import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -19,6 +22,13 @@ fun ToolBar(
     scope: CoroutineScope
 ) {
     CenterAlignedTopAppBar(
+        colors = TopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = Color.White,
+            actionIconContentColor = Color.White,
+            scrolledContainerColor = MaterialTheme.colorScheme.primary,
+            navigationIconContentColor = Color.White
+        ),
         navigationIcon = {
             IconButton(onClick = {
                 scope.launch {

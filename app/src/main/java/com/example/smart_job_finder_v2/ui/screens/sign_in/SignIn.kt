@@ -1,6 +1,6 @@
 package com.example.smart_job_finder_v2.ui.screens.sign_in
 
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedButton
@@ -115,11 +116,13 @@ fun SignInScreen(
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                ElevatedButton(
+                Button(
                     onClick = { viewModel.onSignInClick(openAndPopUp) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(text = stringResource(id = R.string.LogInButton))
+                    Text(
+                        text = stringResource(id = R.string.LogInButton),
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -140,7 +143,7 @@ fun SignInScreen(
 
                 TextButton(
                     onClick = { navigate(Screen.RegisterScreen.route) },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
                     Text(text = stringResource(id = R.string.RegisterButton))
                 }
@@ -148,14 +151,3 @@ fun SignInScreen(
         }
     }
 }
-
-//Row(
-//horizontalArrangement = Arrangement.SpaceEvenly,
-//modifier = Modifier.fillMaxWidth()
-//) {
-//    TextButton(onClick = { navigate(Screen.RegisterScreen.route) }) {
-//        Text(text = stringResource(id = R.string.RegisterButton))
-//    }
-//    ElevatedButton(onClick = { viewModel.onSignInClick(openAndPopUp) }) {
-//        Text(text = stringResource(id = R.string.LogInButton))
-//    }

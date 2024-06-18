@@ -133,7 +133,7 @@ fun JobBottomSheet(
                             .size(160.dp)
                             .clip(CircleShape)
                             .background(Color.LightGray)
-                            .padding(6.dp) // Optional background color
+                            .padding(6.dp)
                     ) {
                         Image(
                             contentDescription = "image",

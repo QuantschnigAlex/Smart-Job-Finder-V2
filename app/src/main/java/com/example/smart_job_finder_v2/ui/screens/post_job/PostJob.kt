@@ -1,7 +1,9 @@
 package com.example.smart_job_finder_v2.ui.screens.post_job
 
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -9,9 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,6 +36,7 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
     val errorMessage = viewModel.errorMessage.collectAsState()
     val postSuccess by viewModel.postSuccess.collectAsState()
     val email = viewModel.email.collectAsState()
+    var selectedFileUri by remember { mutableStateOf<Uri?>(null) }
 
     Scaffold(
         bottomBar = { BottomBar(appState = appState) },
@@ -84,6 +89,10 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
                     SJFTextField(
                         placeholder = { Text(stringResource(id = R.string.EmailPlaceholder)) },
                         value = email.value,
+                        keyboardOptions = KeyboardOptions.Default.copy(
+                            keyboardType = KeyboardType.Email,
+                            autoCorrect = false
+                        ),
                         onValueChange = { viewModel.updateEmail(it) },
                         modifier = Modifier.fillMaxWidth(),
                         isError = errorMessage.value == "Email is empty"
@@ -120,13 +129,12 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
                             .height(200.dp),
                         isError = errorMessage.value == "Description is empty"
                     )
-
                     if (errorMessage.value?.isNotEmpty() == true) {
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
                             text = errorMessage.value!!,
                             modifier = Modifier.align(Alignment.CenterHorizontally),
-                            color = androidx.compose.ui.graphics.Color.Red
+                            color = Color.Red
                         )
                     }
                     Spacer(modifier = Modifier.height(8.dp))
