@@ -51,7 +51,7 @@ fun JobItem(
             Box(modifier = Modifier.size(82.dp)) {
                 Image(
                     contentDescription = "image",
-                    painter = painterResource(id = R.drawable.amazon),
+                    painter = painterResource(id = R.drawable.great_job),
                     contentScale = ContentScale.Fit
                 )
 

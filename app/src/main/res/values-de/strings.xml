@@ -22,4 +22,19 @@
     <string name="ProfileNav">Profil</string>
     <string name="AlreadyHaveAnAccount">Schon einen Account?</string>
     <string name="GetLocation">Standort holen</string>
+    <string name="TitleEmpty">Titel ist leer!</string>
+    <string name="CompanyEmpty">Unternehmen ist leer!</string>
+    <string name="EmailEmpty">Email ist leer!</string>
+    <string name="LocationEmpty">Standort ist leer!</string>
+    <string name="TypeEmpty">Zeitmodel ist leer!</string>
+    <string name="DescriptionEmpty">Beschreibung ist leer!</string>
+    <string name="EmailNotValid">Email ist nicht korrekt!</string>
+    <string name="PasswordNotValid">Passwort muss mindestend 6 Zeichen haben!</string>
+    <string name="LastNameEmpty">Nachname ist leer!</string>
+    <string name="FirstNameEmpty">Vorname ist leer!</string>
+    <string name="PasswordsNotMatch">Passwörter stimmen nicht überein!</string>
+    <string name="InvalidEmailOrPassword">Email oder Passwort sind falsch!</string>
+    <string name="LogInToFinder">Log dich bei Smart Job Finder ein</string>
+    <string name="RegisterToFinder">Registriere dich bei Smart Job Finder</string>
+    <string name="EmailAlreadyInUse">Email wird bereits von einem Account verwendet!</string>
 </resources>

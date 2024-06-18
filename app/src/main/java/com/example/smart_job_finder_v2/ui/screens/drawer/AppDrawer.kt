@@ -1,5 +1,8 @@
 package com.example.smart_job_finder_v2.ui.screens.drawer
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.outlined.ExitToApp
@@ -16,7 +19,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.R
 import com.example.smart_job_finder_v2.Screen
@@ -34,9 +42,7 @@ fun AppDrawer(
     content: @Composable () -> Unit
 
 ) {
-    var selectedItemIndex by rememberSaveable {
-        mutableIntStateOf(0)
-    }
+    var selectedItemIndex = 0
     val items = listOf(
         DrawerItems(
             title = stringResource(id = R.string.ProfileNav),
@@ -52,6 +58,16 @@ fun AppDrawer(
     ModalNavigationDrawer(
         drawerContent = {
             ModalDrawerSheet {
+                Spacer(modifier = Modifier.size(32.dp))
+                Image(
+                    contentDescription = "image",
+                    painter = painterResource(id = R.drawable.sjf_logo),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(200.dp)
+                        .align(alignment = Alignment.CenterHorizontally)
+                )
+                Spacer(modifier = Modifier.size(32.dp))
                 items.forEachIndexed { index, item ->
                     NavigationDrawerItem(
                         label = { Text(item.title) },

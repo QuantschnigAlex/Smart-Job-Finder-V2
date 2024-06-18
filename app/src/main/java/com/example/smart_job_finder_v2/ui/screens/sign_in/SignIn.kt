@@ -13,7 +13,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -35,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.smart_job_finder_v2.R
 import com.example.smart_job_finder_v2.Screen
+import com.example.smart_job_finder_v2.ui.widgets.SJFTextField
 
 @Composable
 fun SignInScreen(
@@ -64,7 +64,7 @@ fun SignInScreen(
                 modifier = Modifier
                     .padding(16.dp)
             ) {
-                OutlinedTextField(
+                SJFTextField(
                     singleLine = true,
                     value = email.value,
                     onValueChange = { viewModel.updateEmail(it) },
@@ -74,6 +74,7 @@ fun SignInScreen(
                         keyboardType = KeyboardType.Email,
                         autoCorrect = false
                     ),
+                    isError = errorMessage.value?.isNotEmpty() == true,
                     trailingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.email),
@@ -82,13 +83,14 @@ fun SignInScreen(
                     }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
-                OutlinedTextField(
+                SJFTextField(
                     singleLine = true,
                     value = password.value,
                     onValueChange = { viewModel.updatePassword(it) },
                     placeholder = { Text(stringResource(R.string.PasswordPlaceholder)) },
                     keyboardOptions = KeyboardOptions.Default.copy(autoCorrect = false),
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                    isError = errorMessage.value?.isNotEmpty() == true,
                     trailingIcon = {
                         val image = if (passwordVisible) {
                             painterResource(id = R.drawable.visibility)
@@ -107,7 +109,16 @@ fun SignInScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 if (errorMessage.value?.isNotEmpty() == true) {
                     Text(
-                        text = errorMessage.value!!,
+                        text = when (errorMessage.value) {
+                            "Password must contain at least 6 characters" -> stringResource(id = R.string.PasswordNotValid)
+                            "Email is not valid" -> stringResource(id = R.string.EmailNotValid)
+
+                            "The supplied auth credential is incorrect, malformed or has expired." -> stringResource(
+                                id = R.string.InvalidEmailOrPassword
+                            )
+
+                            else -> errorMessage.value!!
+                        },
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                         textAlign = TextAlign.Center,
                         color = Color.Red

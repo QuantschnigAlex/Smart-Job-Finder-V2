@@ -1,6 +1,5 @@
 package com.example.smart_job_finder_v2.ui.screens.register
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,11 +10,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -81,12 +78,14 @@ fun RegisterScreen(
                     value = firstName.value,
                     onValueChange = { viewModel.updateFirstName(it) },
                     placeholder = { Text(stringResource(R.string.FirstName)) },
+                    isError = errorMessage.value == "First name is empty",
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 SJFTextField(
                     value = lastName.value,
                     onValueChange = { viewModel.updateLastName(it) },
+                    isError = errorMessage.value == "Last name is empty",
                     placeholder = { Text(stringResource(R.string.LastName)) },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -94,8 +93,14 @@ fun RegisterScreen(
                 SJFTextField(
                     value = email.value,
                     onValueChange = { viewModel.updateEmail(it) },
+                    isError = errorMessage.value == "Email is not valid" || errorMessage.value == "The email address is already in use by another account.",
                     placeholder = { Text(stringResource(R.string.EmailPlaceholder)) },
-                    trailingIcon = painterResource(id = R.drawable.email),
+                    trailingIcon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.email),
+                            contentDescription = "email"
+                        )
+                    },
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Email,
                         autoCorrect = false
@@ -103,9 +108,10 @@ fun RegisterScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                OutlinedTextField(
+                SJFTextField(
                     singleLine = true,
                     value = password.value,
+                    isError = errorMessage.value == "Password must contain at least 6 characters" || errorMessage.value == "Passwords do not match",
                     onValueChange = { viewModel.updatePassword(it) },
                     placeholder = { Text(stringResource(R.string.PasswordPlaceholder)) },
                     keyboardOptions = KeyboardOptions.Default.copy(autoCorrect = false),
@@ -126,10 +132,11 @@ fun RegisterScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                OutlinedTextField(
+                SJFTextField(
                     singleLine = true,
                     value = confirmPassword.value,
                     onValueChange = { viewModel.updateConfirmPassword(it) },
+                    isError = errorMessage.value == "Passwords do not match",
                     placeholder = { Text(stringResource(R.string.PasswordPlaceholderAgain)) },
                     keyboardOptions = KeyboardOptions.Default.copy(autoCorrect = false),
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -151,7 +158,18 @@ fun RegisterScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 if (errorMessage.value?.isNotEmpty() == true) {
                     Text(
-                        text = errorMessage.value!!,
+                        text = when (errorMessage.value) {
+                            "Password must contain at least 6 characters" -> stringResource(id = R.string.PasswordNotValid)
+                            "Email is not valid" -> stringResource(id = R.string.EmailNotValid)
+                            "Passwords do not match" -> stringResource(id = R.string.PasswordsNotMatch)
+                            "First name is empty" -> stringResource(id = R.string.FirstNameEmpty)
+                            "Last name is empty" -> stringResource(id = R.string.LastNameEmpty)
+                            "The email address is already in use by another account." -> stringResource(
+                                id = R.string.EmailAlreadyInUse
+                            )
+
+                            else -> errorMessage.value!!
+                        },
                         modifier = Modifier.align(Alignment.CenterHorizontally),
                         textAlign = TextAlign.Center,
                         color = Color.Red

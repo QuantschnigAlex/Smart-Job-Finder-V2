@@ -1,5 +1,6 @@
 package com.example.smart_job_finder_v2.ui.widgets
 
+import android.graphics.drawable.Icon
 import android.widget.Button
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
@@ -17,8 +18,7 @@ fun SJFTextField(
     placeholder: @Composable (() -> Unit)? = null,
     singleLine: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    trailingIcon: Painter? = null,
-    trailingIconContentDescription: String? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     isError: Boolean = false,
     maxLines: Int = 1
@@ -33,13 +33,6 @@ fun SJFTextField(
         maxLines = maxLines,
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,
-        trailingIcon = {
-            trailingIcon?.let {
-                Icon(
-                    painter = it,
-                    contentDescription = trailingIconContentDescription
-                )
-            }
-        }
+        trailingIcon = trailingIcon,
     )
 }

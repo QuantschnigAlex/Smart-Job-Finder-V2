@@ -200,7 +200,15 @@ fun PostJobScreen(appState: SJFAppState, viewModel: PostJobViewModel = hiltViewM
                     if (errorMessage.value?.isNotEmpty() == true) {
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = errorMessage.value!!,
+                            text = when (errorMessage.value) {
+                                "Title is empty" -> stringResource(id = R.string.TitleEmpty)
+                                "Company is empty" -> stringResource(id = R.string.CompanyEmpty)
+                                "Email is empty" -> stringResource(id = R.string.EmailEmpty)
+                                "Location is empty" -> stringResource(id = R.string.LocationEmpty)
+                                "Type is empty" -> stringResource(id = R.string.TypeEmpty)
+                                "Description is empty" -> stringResource(id = R.string.DescriptionEmpty)
+                                else -> errorMessage.value!!
+                            },
                             modifier = Modifier.align(Alignment.CenterHorizontally),
                             color = Color.Red
                         )

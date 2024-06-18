@@ -37,21 +37,6 @@ class SignInViewModel @Inject constructor(
         }
     }
 
-    fun onSignUpClick(openAndPopUp: (String, String) -> Unit) {
-        launchCatching {
-            if (password.value.length < 6) {
-                throw Exception("Password must contain at least 6 characters")
-            }
-
-            if (!isValidEmail(email.value)) {
-                throw Exception("Email is not valid")
-            }
-            accountService.signUp(email.value, password.value)
-            openAndPopUp(Screen.HomeScreen.route, Screen.SignInScreen.route)
-        }
-
-    }
-
     private fun isValidEmail(email: String): Boolean {
         val emailPattern = "^[A-Za-z0-9+_.-]+@(.+)$"
 
