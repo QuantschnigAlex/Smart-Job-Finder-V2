@@ -27,4 +27,5 @@
     <string name="ProfileNav">Profile</string>
     <string name="LogOutNav" translatable="false">LogOut</string>
     <string name="AlreadyHaveAnAccount">Already have an Account?</string>
+    <string name="GetLocation">Get Location</string>
 </resources>

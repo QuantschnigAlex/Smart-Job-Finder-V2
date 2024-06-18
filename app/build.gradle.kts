@@ -64,6 +64,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2024.05.00"))
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     implementation("com.google.dagger:hilt-android:2.49")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
     kapt("com.google.dagger:hilt-compiler:2.44")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")

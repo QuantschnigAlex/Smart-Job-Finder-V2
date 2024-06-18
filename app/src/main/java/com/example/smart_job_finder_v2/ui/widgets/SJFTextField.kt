@@ -1,5 +1,6 @@
 package com.example.smart_job_finder_v2.ui.widgets
 
+import android.widget.Button
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
