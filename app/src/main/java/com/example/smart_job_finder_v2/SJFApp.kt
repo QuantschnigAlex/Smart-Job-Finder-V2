@@ -91,7 +91,7 @@ fun NavGraphBuilder.sjfGraph(appState: SJFAppState) {
     composable(Screen.HomeScreen.route) {
         HomeScreen(
             appState,
-            clearAndNavigate = { route -> appState.clearAndNavigate(route) })
+        )
     }
     composable(Screen.SplashScreen.route) {
         SplashScreen(openAndPopUp = { route, popUp -> appState.navigateAndPopUp(route, popUp) })

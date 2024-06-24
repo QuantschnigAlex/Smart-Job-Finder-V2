@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,10 +25,13 @@ import com.example.smart_job_finder_v2.SJFAppState
 import com.example.smart_job_finder_v2.ui.screens.home.HomeViewModel
 import com.example.smart_job_finder_v2.ui.widgets.AnimatedPreloader
 import com.example.smart_job_finder_v2.ui.widgets.BottomBar
+import com.example.smart_job_finder_v2.ui.widgets.JobBottomSheet
 import com.example.smart_job_finder_v2.ui.widgets.JobItem
 
 @Composable
 fun LikesScreen(appState: SJFAppState, viewModel: HomeViewModel = hiltViewModel()) {
+    val scope = rememberCoroutineScope()
+
     Scaffold(
         bottomBar = {
             BottomBar(
@@ -36,6 +40,7 @@ fun LikesScreen(appState: SJFAppState, viewModel: HomeViewModel = hiltViewModel(
         },
         content = { padding ->
             LikesContent(padding, viewModel)
+            JobBottomSheet(scope = scope, viewModel = viewModel)
         }
     )
 }

@@ -23,7 +23,6 @@ import com.example.smart_job_finder_v2.ui.widgets.JobItem
 @Composable
 fun HomeScreen(
     appState: SJFAppState,
-    clearAndNavigate: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
